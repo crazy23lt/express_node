@@ -1,0 +1,27 @@
+{
+  "name": "node-temp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "刘涛 <liutao55@gemdale.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "rollup --watch --config rollup.config.js",
+    "start": "nodemon ./dist/index.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4",
+    "rollup": "^4.20.0",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4"
+  }
+}
