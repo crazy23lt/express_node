@@ -14,7 +14,7 @@ export default {
     dir: "dist",
     format: "es",
   },
-  external:['express'],
+  external: ["express", "multer", "jsonwebtoken", "uuid"],
   plugins: [
     json(),
     alias({

@@ -1,3 +1,3 @@
-export * as LoginRoutes from "./loginRoutes";
-export * as PostRoutes from "./postRoutes";
-export * as UserRoutes from "./userRoutes";
+export { default as LoginRoutes } from "./loginRoutes";
+export { default as PostRoutes } from "./postRoutes";
+export { default as UserRoutes } from "./userRoutes";

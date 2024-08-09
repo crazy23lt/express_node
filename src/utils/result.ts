@@ -30,6 +30,20 @@ class Result<T> {
       param ?? null
     );
   }
+  static authenticationFailed<T>(param?: T) {
+    return new Result(
+      ResultCode.authentication_failed.code,
+      ResultCode.authentication_failed.desc,
+      param ?? null
+    );
+  }
+  static authorizeFailed<T>(param?: T) {
+    return new Result(
+      ResultCode.authorize_failed.code,
+      ResultCode.authorize_failed.desc,
+      param ?? null
+    );
+  }
   static notFound<T>(param?: T) {
     return new Result(
       ResultCode.API_NOT_FOUND.code,
