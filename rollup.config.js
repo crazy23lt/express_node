@@ -7,14 +7,26 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const baseCompile = { dir: "dist", sourcemap: true };
+const amdCompile = { format: "amd", entryFileNames: "[name].amd.js" };
+const cjsCompile = { format: "cjs", entryFileNames: "[name].cjs.js" };
+const esmCompile = { format: "esm", entryFileNames: "[name].esm.js" };
+const umdCompile = {
+  format: "umd",
+  entryFileNames: "[name].umd.js",
+  name: "Vue",
+};
 /** @type {import('rollup').RollupOptions} */
 export default {
-  input: "./src/index.ts",
-  output: {
-    dir: "dist",
-    format: "es",
-  },
-  external: ["express", "multer", "jsonwebtoken", "uuid"],
+  input: "./src/main.ts",
+  output: [
+    // Object.assign(baseCompile, amdCompile),
+    Object.assign(baseCompile, cjsCompile),
+    Object.assign(baseCompile, esmCompile),
+    // Object.assign(baseCompile, umdCompile),
+  ],
+  external: ["express", "multer", "jsonwebtoken", "uuid", "etag"],
   plugins: [
     json(),
     alias({

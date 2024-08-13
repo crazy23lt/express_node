@@ -8,7 +8,7 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (token) {
     try {
       const user = verifyToken(token);
-      req.user = user; // 将解码后的用户信息附加到请求对象上
+      // req.user = user; // 将解码后的用户信息附加到请求对象上
       next();
     } catch (error) {
       res.status(403).json(Result.authorizeFailed());
@@ -18,4 +18,4 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default authMiddleware
+export default authMiddleware;
