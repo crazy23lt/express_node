@@ -1,43 +1,50 @@
-/** 实现 call apply bind */
-Function.prototype.myCall = function (context) {
-  const arg = [...arguments].slice(1);
-  context = context || window;
-  const fn = this;
-  context.fn = fn;
-  const res = context.fn(arg);
-  delete context.fn;
-  return res;
+const fn = () => {
+  return "llllll";
 };
-Function.prototype.myApply = function (context) {
-  const args = [...arguments][1];
-  context = context || window;
-  const fn = this;
-  context.fn = fn;
-  const res = context.fn(...args);
-  delete context.fn;
-  return res;
+const target = {
+  h: { name: "wad" },
+  j: [1, 2, 3],
+  fn,
 };
-Function.prototype.myBind = function (context) {
-  const args = [...arguments].slice(1);
-  const fn = this;
-  return function Fn() {
-    return fn.call(
-      this instanceof Fn ? this : context,
-      args.concat(...arguments)
-    );
-  };
+target.j.push(target.j);
+target.i = target;
+const myCopy = (target) => {};
+const myDeepCopy = (target, map = new WeakMap()) => {
+  const type = Object.prototype.toString.call(target).slice(8, -1);
+  console.log({ type, target });
+  if (type === "Object") {
+    let ret = {};
+    const has = map.has(target);
+    if (has) {
+      ret = map.get(target);
+    } else {
+      map.set(target, target);
+      for (const key in target) {
+        if (target.hasOwnProperty(prop)) {
+          ret[key] = myDeepCopy(target[key], map);
+        }
+      }
+    }
+    return ret;
+  } else if (type === "array") {
+    let ret = [];
+    const has = map.has(target);
+    if (has) {
+      ret = map.get(target);
+    } else {
+      map.set(target, target);
+      for (const item of target) {
+        ret.push(myDeepCopy(item, map));
+      }
+    }
+    return ret;
+  } else {
+    return target;
+  }
 };
-function getName() {
-  return `${this.name},${[...arguments]}`;
-}
-/*
-const myCall = getName.myCall({ name: "myCall" }, [1, 2], 3);
-const call = getName.call({ name: "call" }, [1, 2], 3);
-console.log({ myCall, call });
-const myApply = getName.myApply({ name: "myApply" }, [1, 2], 3);
-const apply = getName.apply({ name: "apply" }, [1, 2], 3);
-console.log({ myApply, apply });
-const myBind = getName.myBind({ name: "myApply" }, [1, 2], 3);
-const bind = getName.bind({ name: "apply" }, [1, 2], 3);
-console.log({ myBind: myBind(), bind: bind() });
-*/
+const normal = myCopy(target);
+const deep = myDeepCopy(target);
+target.fn = () => "222222222222";
+console.log(target.fn());
+console.log(deep.fn());
+console.log({ target, normal, deep });

@@ -3,171 +3,60 @@
 `rollup --config`
 `rollup --config --watch`
 
-
-
-
-Q:*编写 node 项目使用 esm 规范，还是沿用 cjs 规范？*
+Q:_编写 node 项目使用 esm 规范，还是沿用 cjs 规范？_
 A: 1. esm 未来主流标准，
 
-Q:*浏览器缓存？*
-A: 
-  - 强制缓存(高优先级)
-    - cache-control(高优先级) ：绝对时间
-    - expires ：相对时间
-  - 协商缓存
-    - etag(高优先级) ：资源文件hash值
-    - last-modified ：资源文件修改时间
+Q:_浏览器缓存？_
+A:
 
+- 强制缓存(高优先级)
+  - cache-control(高优先级) ：绝对时间
+  - expires ：相对时间
+- 协商缓存
+  - etag(高优先级) ：资源文件 hash 值
+  - last-modified ：资源文件修改时间
 
 ## Reference
 
 - 前端工程化 主要探讨方向 rollup webpack vite
   - [前端模块化详解(完整版)](https://segmentfault.com/a/1190000017466120)
-  - [2023前端面试系列-- webpack & Git篇](https://juejin.cn/post/7196630860811075642)
-  - [2024前端高频面试题之-- 前端工程化篇](https://juejin.cn/post/7350535815132659749)
-  - [2024前端高频面试题之-- 前端工程化篇](https://juejin.cn/post/7350535815132659749)
-  - [面试必备：常见的webpack / Vite面试题汇总](https://juejin.cn/post/7207659644487893051)
+  - [2023 前端面试系列-- webpack & Git 篇](https://juejin.cn/post/7196630860811075642)
+  - [2024 前端高频面试题之-- 前端工程化篇](https://juejin.cn/post/7350535815132659749)
+  - [2024 前端高频面试题之-- 前端工程化篇](https://juejin.cn/post/7350535815132659749)
+  - [面试必备：常见的 webpack / Vite 面试题汇总](https://juejin.cn/post/7207659644487893051)
   - [前端，通过面试去学习，工程化（webpack、rollup、parcel、tree-shaking、babel）](https://blog.csdn.net/IronKee/article/details/122204906)
 - Http 缓存 强缓存&弱缓存
 
-Q:*快速填充数组?*
+Q:_快速填充数组?_
 A:
-  1. `new Array(3).fill(120)`           填充的值是引用，一改全改了
-  2. `Array.from({length:3},()=>120)`   填充的值是复制，只会改一个
-  3. `[...new Array(3).keys()]`         能用但是不灵活
 
-Q:*暂时性死区？*
+1. `new Array(3).fill(120)` 填充的值是引用，一改全改了
+2. `Array.from({length:3},()=>120)` 填充的值是复制，只会改一个
+3. `[...new Array(3).keys()]` 能用但是不灵活
+
+Q:_暂时性死区？_
 A:
-  - `var` 关键字 用来声明变量，**作用域：全局作用域**、**变量提升：存在变量提升**、**重复声明：允许重复声明**
-  - `let` 关键字 用来声明变量，**作用域：块级作用域**、**变量提升：暂时性死区**、**重复声明：不允许**
-  - `const` 关键字 用来声明常量，**作用域：块级作用域**、**变量提升：暂时性死区**、**重复声明：不允许**
 
-Q:*`Number.isNaN(xx) & isNaN(xx)?`*
-A: `Number.isNaN()`先判断是否是number，再判断是否
+- `var` 关键字 用来声明变量，**作用域：全局作用域**、**变量提升：存在变量提升**、**重复声明：允许重复声明**
+- `let` 关键字 用来声明变量，**作用域：块级作用域**、**变量提升：暂时性死区**、**重复声明：不允许**
+- `const` 关键字 用来声明常量，**作用域：块级作用域**、**变量提升：暂时性死区**、**重复声明：不允许**
 
-Q:*js 数据类型？*
+Q:_`Number.isNaN(xx) & isNaN(xx)?`_
+A: `Number.isNaN()`先判断是否是 number，再判断是否
+
+Q:_js 数据类型？_
 A:
-  - 基本数据类型：string、number、boolean、undefined、null、symbol、bigint
-  - 引用数据类型：object、function、array
 
-Q:*js 判断类型的方法？*
+- 基本数据类型：string、number、boolean、undefined、null、symbol、bigint
+- 引用数据类型：object、function、array
+
+Q:_js 判断类型的方法？_
 A:
-  - `typeof 12 === 'number'` 能够判断 string、number、boolean、undefined、functoin、symbol、bigint
-  - `([]) instanceof Array`
 
+- `typeof 12 === 'number'` 能够判断 string、number、boolean、undefined、functoin、symbol、bigint
+- `([]) instanceof Array`
 
 在 JavaScript 中，判断数据类型的方法有很多，每种方法都有其特点和适用场景。以下是几种常见的判断数据类型的方法及其使用说明：
-
-## 数据类型检查
-
-### 1. `typeof` 操作符
-
-- **描述**：用于检测变量的数据类型。适用于基本数据类型，但对于对象类型的检测不够准确。
-- **语法**：`typeof variable`
-- **返回值**：返回一个表示数据类型的字符串。
-- **示例**：
-  ```javascript
-  console.log(typeof 42);          // "number"
-  console.log(typeof 'hello');     // "string"
-  console.log(typeof true);        // "boolean"
-  console.log(typeof undefined);   // "undefined"
-  console.log(typeof null);        // "object" (这是一个已知的 JavaScript 的历史遗留问题)
-  console.log(typeof Symbol());    // "symbol"
-  console.log(typeof 123n);        // "bigint"
-  ```
-
-### 2. `instanceof` 操作符
-
-- **描述**：用于检测一个对象是否是某个构造函数的实例。适用于对象类型的检测。
-- **语法**：`object instanceof Constructor`
-- **返回值**：返回布尔值。
-- **示例**：
-  ```javascript
-  console.log([] instanceof Array);        // true
-  console.log({} instanceof Object);       // true
-  console.log(function() {} instanceof Function); // true
-  ```
-
-### 3. `Object.prototype.toString.call()`
-
-- **描述**：用于检测对象的准确类型，适用于所有类型，包括内置对象如数组、正则表达式等。
-- **语法**：`Object.prototype.toString.call(variable)`
-- **返回值**：返回一个表示数据类型的字符串，如 `"[object Type]"`。
-- **示例**：
-  ```javascript
-  console.log(Object.prototype.toString.call(42));          // "[object Number]"
-  console.log(Object.prototype.toString.call('hello'));     // "[object String]"
-  console.log(Object.prototype.toString.call([]));          // "[object Array]"
-  console.log(Object.prototype.toString.call({}));          // "[object Object]"
-  console.log(Object.prototype.toString.call(null));        // "[object Null]"
-  console.log(Object.prototype.toString.call(/regex/));     // "[object RegExp]"
-  ```
-
-### 4. `Array.isArray()`
-
-- **描述**：专门用于检测一个值是否为数组。是 `Array` 的静态方法。
-- **语法**：`Array.isArray(value)`
-- **返回值**：返回布尔值。
-- **示例**：
-  ```javascript
-  console.log(Array.isArray([]));       // true
-  console.log(Array.isArray({}));       // false
-  console.log(Array.isArray('hello'));  // false
-  ```
-
-### 5. `Number.isNaN()`
-
-- **描述**：检测一个值是否为 `NaN`（Not-a-Number）。`Number.isNaN()` 比 `isNaN()` 更严格，因为它不会强制转换值。
-- **语法**：`Number.isNaN(value)`
-- **返回值**：返回布尔值。
-- **示例**：
-  ```javascript
-  console.log(Number.isNaN(NaN));      // true
-  console.log(Number.isNaN('string')); // false
-  console.log(Number.isNaN(42));       // false
-  ```
-
-### 6. `isNaN()` 函数
-
-- **描述**：检查一个值是否是 `NaN`。不同于 `Number.isNaN()`，`isNaN()` 会首先将值转换为数字，然后判断是否为 `NaN`。
-- **语法**：`isNaN(value)`
-- **返回值**：返回布尔值。
-- **示例**：
-  ```javascript
-  console.log(isNaN(NaN));        // true
-  console.log(isNaN('string'));   // true (因为 'string' 会被转换成 NaN)
-  console.log(isNaN(42));         // false
-  ```
-
-### 7. `constructor` 属性
-
-- **描述**：每个对象都有一个 `constructor` 属性，指向创建该对象的构造函数。可以用来判断对象的构造函数。
-- **语法**：`variable.constructor === Constructor`
-- **返回值**：返回布尔值。
-- **示例**：
-  ```javascript
-  console.log(([]).constructor === Array);        // true
-  console.log(({}).constructor === Object);      // true
-  console.log((function() {}).constructor === Function); // true
-  ```
-
-### 8. 自定义检测
-
-有时候，你可能需要自定义函数来判断特定的类型，尤其是在处理复杂的数据结构或类时。
-
-```javascript
-function isCustomType(value) {
-  // 自定义判断逻辑
-  return value instanceof MyCustomType;
-}
-```
-
-### 总结
-
-- **基本数据类型**：使用 `typeof` 和 `Number.isNaN()`。
-- **对象类型**：使用 `instanceof` 和 `Object.prototype.toString.call()`。
-- **数组**：使用 `Array.isArray()`。
-- **特殊情况**：`null` 的类型检测需要特别注意，`Object.prototype.toString.call()` 是最可靠的方法。
 
 选择合适的方法取决于你的具体需求和上下文。
 
@@ -178,6 +67,7 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 ### Cookies 的基本概念
 
 1. **定义**：
+
    - **Cookie** 是由服务器发送到浏览器的文本数据，浏览器会在后续的请求中自动附带这些数据。
 
 2. **结构**：
@@ -196,6 +86,7 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 
 - **服务器端设置**：
   服务器通过 HTTP 响应头中的 `Set-Cookie` 字段设置 Cookie。例如：
+
   ```http
   Set-Cookie: user=JohnDoe; expires=Fri, 01 Jan 2025 12:00:00 GMT; path=/; domain=example.com; secure; HttpOnly
   ```
@@ -203,7 +94,8 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 - **客户端设置**：
   可以使用 JavaScript 通过 `document.cookie` 属性设置 Cookie。例如：
   ```javascript
-  document.cookie = "username=JohnDoe; expires=Fri, 01 Jan 2025 12:00:00 GMT; path=/";
+  document.cookie =
+    "username=JohnDoe; expires=Fri, 01 Jan 2025 12:00:00 GMT; path=/";
   ```
 
 #### 2. 读取 Cookie
@@ -217,28 +109,34 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 
 - 要删除 Cookie，可以设置过期时间为过去的时间。例如：
   ```javascript
-  document.cookie = "username=JohnDoe; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  document.cookie =
+    "username=JohnDoe; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
   ```
 
 ### Cookie 的属性
 
 1. **`expires`**：
+
    - **描述**：指定 Cookie 的过期时间。如果未设置，Cookie 会在会话结束时被删除。
    - **示例**：`expires=Fri, 01 Jan 2025 12:00:00 GMT`
 
 2. **`max-age`**：
+
    - **描述**：指定 Cookie 的最大生存时间（以秒为单位）。`max-age` 优先于 `expires`。
    - **示例**：`max-age=3600`（表示 Cookie 在 1 小时后过期）
 
 3. **`path`**：
+
    - **描述**：指定 Cookie 的适用路径。Cookie 仅在指定路径下可用。
    - **示例**：`path=/`（表示 Cookie 对整个域名下的路径都有效）
 
 4. **`domain`**：
+
    - **描述**：指定 Cookie 的适用域名。通常设置为当前域名及其子域名。
    - **示例**：`domain=example.com`
 
 5. **`secure`**：
+
    - **描述**：指定 Cookie 仅通过 HTTPS 连接传输。
    - **示例**：`secure`
 
@@ -249,6 +147,7 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 ### Cookie 的安全性和隐私
 
 - **安全性**：
+
   - **`Secure` 属性**：确保 Cookie 仅通过加密的 HTTPS 连接发送，防止在不安全的 HTTP 连接中泄露。
   - **`HttpOnly` 属性**：防止 JavaScript 访问 Cookie，减少跨站脚本攻击（XSS）的风险。
 
@@ -258,12 +157,15 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 ### 使用场景
 
 1. **会话管理**：
+
    - 用于保存用户的登录状态和会话信息。
 
 2. **个性化设置**：
+
    - 保存用户的个性化设置和偏好，如语言和主题。
 
 3. **跟踪和分析**：
+
    - 用于跟踪用户行为，进行分析和广告投放。
 
 4. **购物车**：
@@ -274,12 +176,14 @@ Cookie 是一种由 Web 服务器创建并存储在用户浏览器中的小型�
 Cookie 是一种简单而强大的机制，用于在用户浏览器中存储和传递状态信息。尽管 Cookie 有其便利性，但在使用时需要注意安全性和隐私问题，尤其是在处理敏感数据时。了解和合理使用 Cookie 属性，可以帮助提升用户体验并确保数据安全。
 
 ## use strict 严格模式
+
 - 消除 js 语法不合理之处，减少怪异行为
 - 的代码运行更安全
 - 编译器效率更高，增加运行速率
 - 禁用 with 语句
 - 禁止 this 指向全局
 - 对象不能重名属性
+
 ## DOM 文档对象模型 BOM 浏览器对象模型
 
 - BOM : window、navigator、screen、location、history
